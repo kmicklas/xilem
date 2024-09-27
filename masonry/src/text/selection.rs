@@ -353,6 +353,7 @@ impl<T: Selectable> TextWithSelection<T> {
                 selection.active_affinity,
             );
             parent_node.set_text_selection(TextSelection { anchor, focus });
+            parent_node.add_action(accesskit::Action::SetTextSelection);
         }
     }
 
