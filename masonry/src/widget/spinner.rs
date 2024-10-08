@@ -173,7 +173,7 @@ impl Widget for Spinner {
 mod tests {
     use super::*;
     use crate::assert_render_snapshot;
-    use crate::testing::TestHarness;
+    use crate::testing::{TestHarness, TestHarnessOptions};
     //use {std::time,web_time}::Duration;
 
     #[test]
@@ -193,14 +193,22 @@ mod tests {
         let image_1 = {
             let spinner = Spinner::new().with_color(Color::PURPLE);
 
-            let mut harness = TestHarness::create_with_size(spinner, Size::new(30.0, 30.0));
+            let options = TestHarnessOptions {
+                size: Size::new(30.0, 30.0),
+                ..Default::default()
+            };
+            let mut harness = TestHarness::create_with(spinner, options);
             harness.render()
         };
 
         let image_2 = {
             let spinner = Spinner::new();
 
-            let mut harness = TestHarness::create_with_size(spinner, Size::new(30.0, 30.0));
+            let options = TestHarnessOptions {
+                size: Size::new(30.0, 30.0),
+                ..Default::default()
+            };
+            let mut harness = TestHarness::create_with(spinner, options);
 
             harness.edit_root_widget(|mut spinner| {
                 let mut spinner = spinner.downcast::<Spinner>();

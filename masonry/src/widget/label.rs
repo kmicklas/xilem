@@ -290,7 +290,7 @@ mod tests {
 
     use super::*;
     use crate::assert_render_snapshot;
-    use crate::testing::TestHarness;
+    use crate::testing::{TestHarness, TestHarnessOptions};
     use crate::theme::{PRIMARY_DARK, PRIMARY_LIGHT};
     use crate::widget::{Flex, SizedBox};
 
@@ -313,7 +313,11 @@ mod tests {
             .with_line_break_mode(LineBreaking::WordWrap)
             .with_text_alignment(Alignment::Middle);
 
-        let mut harness = TestHarness::create_with_size(label, Size::new(200.0, 200.0));
+        let options = TestHarnessOptions {
+            size: Size::new(200.0, 200.0),
+            ..Default::default()
+        };
+        let mut harness = TestHarness::create_with(label, options);
 
         assert_render_snapshot!(harness, "styled_label");
     }
@@ -362,7 +366,11 @@ mod tests {
                 .with_line_break_mode(LineBreaking::WordWrap)
                 .with_text_alignment(Alignment::Middle);
 
-            let mut harness = TestHarness::create_with_size(label, Size::new(50.0, 50.0));
+            let options = TestHarnessOptions {
+                size: Size::new(50.0, 50.0),
+                ..Default::default()
+            };
+            let mut harness = TestHarness::create_with(label, options);
 
             harness.render()
         };
@@ -372,7 +380,11 @@ mod tests {
                 .with_text_brush(PRIMARY_DARK)
                 .with_text_size(40.0);
 
-            let mut harness = TestHarness::create_with_size(label, Size::new(50.0, 50.0));
+            let options = TestHarnessOptions {
+                size: Size::new(50.0, 50.0),
+                ..Default::default()
+            };
+            let mut harness = TestHarness::create_with(label, options);
 
             harness.edit_root_widget(|mut label| {
                 let mut label = label.downcast::<Label>();

@@ -24,14 +24,6 @@ use crate::tracing_backend::try_init_test_tracing;
 use crate::widget::{WidgetMut, WidgetRef};
 use crate::{Color, Handled, Point, Size, Vec2, Widget, WidgetId};
 
-// TODO - Get shorter names
-// TODO - Make them associated consts
-/// Default canvas size for tests.
-pub const HARNESS_DEFAULT_SIZE: Size = Size::new(400., 400.);
-
-/// Default background color for tests.
-pub const HARNESS_DEFAULT_BACKGROUND_COLOR: Color = Color::rgb8(0x29, 0x29, 0x29);
-
 /// A safe headless environment to test widgets in.
 ///
 /// `TestHarness` is a type that simulates an [`AppRoot`](crate::AppRoot)
@@ -122,6 +114,13 @@ pub struct TestHarness {
     background_color: Color,
 }
 
+#[derive(Clone, Copy, Debug)]
+pub struct TestHarnessOptions {
+    pub size: Size,
+    pub background_color: Color,
+    pub scale_factor: f64,
+}
+
 /// Assert a snapshot of a rendered frame of your app.
 ///
 /// This macro takes a test harness and a name, renders the current state of the app,
@@ -144,33 +143,38 @@ macro_rules! assert_render_snapshot {
     };
 }
 
+impl Default for TestHarnessOptions {
+    fn default() -> Self {
+        Self {
+            size: TestHarness::DEFAULT_SIZE,
+            background_color: TestHarness::DEFAULT_BACKGROUND_COLOR,
+            // TODO - Change to to something like 2.0 to catch scale errors by default
+            scale_factor: 1.0,
+        }
+    }
+}
+
 impl TestHarness {
+    /// Default canvas size for tests.
+    pub const DEFAULT_SIZE: Size = Size::new(400., 400.);
+
+    /// Default background color for tests.
+    pub const DEFAULT_BACKGROUND_COLOR: Color = Color::rgb8(0x29, 0x29, 0x29);
+
     /// Builds harness with given root widget.
     ///
-    /// Window size will be [`HARNESS_DEFAULT_SIZE`].
-    /// Background color will be [`HARNESS_DEFAULT_BACKGROUND_COLOR`].
+    /// Window size will be [`TestHarness::DEFAULT_SIZE`].
+    /// Background color will be [`TestHarness::DEFAULT_BACKGROUND_COLOR`].
     pub fn create(root_widget: impl Widget) -> Self {
-        Self::create_with(
-            root_widget,
-            HARNESS_DEFAULT_SIZE,
-            HARNESS_DEFAULT_BACKGROUND_COLOR,
-        )
-    }
-
-    // TODO - Remove
-    /// Builds harness with given root widget and window size.
-    pub fn create_with_size(root_widget: impl Widget, window_size: Size) -> Self {
-        Self::create_with(root_widget, window_size, HARNESS_DEFAULT_BACKGROUND_COLOR)
+        Self::create_with(root_widget, Default::default())
     }
 
     /// Builds harness with given root widget, canvas size and background color.
-    pub fn create_with(
-        root_widget: impl Widget,
-        window_size: Size,
-        background_color: Color,
-    ) -> Self {
+    pub fn create_with(root_widget: impl Widget, options: TestHarnessOptions) -> Self {
         let mouse_state = PointerState::empty();
-        let window_size = PhysicalSize::new(window_size.width as _, window_size.height as _);
+        let window_size = PhysicalSize::new(options.size.width as _, options.size.height as _);
+        let scale_factor = options.scale_factor;
+        let background_color = options.background_color;
 
         // If there is no default tracing subscriber, we set our own. If one has
         // already been set, we get an error which we swallow.
@@ -185,7 +189,7 @@ impl TestHarness {
                 RenderRootOptions {
                     use_system_fonts: false,
                     size_policy: WindowSizePolicy::User,
-                    scale_factor: 1.0,
+                    scale_factor,
                 },
             ),
             mouse_state,

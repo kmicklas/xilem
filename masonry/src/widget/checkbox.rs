@@ -227,7 +227,7 @@ mod tests {
 
     use super::*;
     use crate::assert_render_snapshot;
-    use crate::testing::{widget_ids, TestHarness, TestWidgetExt};
+    use crate::testing::{widget_ids, TestHarness, TestHarnessOptions, TestWidgetExt};
     use crate::theme::PRIMARY_LIGHT;
 
     #[test]
@@ -268,7 +268,11 @@ mod tests {
                     .with_text_size(20.0),
             );
 
-            let mut harness = TestHarness::create_with_size(checkbox, Size::new(50.0, 50.0));
+            let options = TestHarnessOptions {
+                size: Size::new(50.0, 50.0),
+                ..Default::default()
+            };
+            let mut harness = TestHarness::create_with(checkbox, options);
 
             harness.render()
         };
@@ -276,7 +280,11 @@ mod tests {
         let image_2 = {
             let checkbox = Checkbox::new(false, "Hello world");
 
-            let mut harness = TestHarness::create_with_size(checkbox, Size::new(50.0, 50.0));
+            let options = TestHarnessOptions {
+                size: Size::new(50.0, 50.0),
+                ..Default::default()
+            };
+            let mut harness = TestHarness::create_with(checkbox, options);
 
             harness.edit_root_widget(|mut checkbox| {
                 let mut checkbox = checkbox.downcast::<Checkbox>();

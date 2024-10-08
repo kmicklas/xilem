@@ -241,14 +241,18 @@ mod tests {
     use super::*;
     use crate::assert_render_snapshot;
     use crate::event::PointerButton;
-    use crate::testing::{widget_ids, TestHarness, TestWidgetExt};
+    use crate::testing::{widget_ids, TestHarness, TestHarnessOptions, TestWidgetExt};
 
     #[test]
     fn simple_scrollbar() {
         let [scrollbar_id] = widget_ids();
         let widget = ScrollBar::new(Axis::Vertical, 200.0, 600.0).with_id(scrollbar_id);
 
-        let mut harness = TestHarness::create_with_size(widget, Size::new(50.0, 200.0));
+        let options = TestHarnessOptions {
+            size: Size::new(50.0, 200.0),
+            ..Default::default()
+        };
+        let mut harness = TestHarness::create_with(widget, options);
 
         assert_debug_snapshot!(harness.root_widget());
         assert_render_snapshot!(harness, "scrollbar_default");
@@ -275,7 +279,11 @@ mod tests {
         let [scrollbar_id] = widget_ids();
         let widget = ScrollBar::new(Axis::Horizontal, 200.0, 600.0).with_id(scrollbar_id);
 
-        let mut harness = TestHarness::create_with_size(widget, Size::new(200.0, 50.0));
+        let options = TestHarnessOptions {
+            size: Size::new(200.0, 50.0),
+            ..Default::default()
+        };
+        let mut harness = TestHarness::create_with(widget, options);
 
         assert_debug_snapshot!(harness.root_widget());
         assert_render_snapshot!(harness, "scrollbar_horizontal");

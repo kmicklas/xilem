@@ -578,7 +578,7 @@ mod tests {
 
     use super::*;
     use crate::assert_render_snapshot;
-    use crate::testing::TestHarness;
+    use crate::testing::{TestHarness, TestHarnessOptions};
     use crate::widget::Label;
 
     #[test]
@@ -622,7 +622,11 @@ mod tests {
                 .draggable(true)
                 .solid_bar(true);
 
-            let mut harness = TestHarness::create_with_size(widget, Size::new(100.0, 100.0));
+            let options = TestHarnessOptions {
+                size: Size::new(100.0, 100.0),
+                ..Default::default()
+            };
+            let mut harness = TestHarness::create_with(widget, options);
 
             harness.render()
         };
@@ -630,7 +634,11 @@ mod tests {
         let image_2 = {
             let widget = Split::rows(Label::new("Hello"), Label::new("World"));
 
-            let mut harness = TestHarness::create_with_size(widget, Size::new(100.0, 100.0));
+            let options = TestHarnessOptions {
+                size: Size::new(100.0, 100.0),
+                ..Default::default()
+            };
+            let mut harness = TestHarness::create_with(widget, options);
 
             harness.edit_root_widget(|mut splitter| {
                 let mut splitter = splitter.downcast::<Split>();
