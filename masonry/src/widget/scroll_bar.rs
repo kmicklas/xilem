@@ -309,7 +309,11 @@ mod tests {
                     .with_text_size(20.0),
             );
 
-            let mut harness = TestHarness::create_with_size(button, Size::new(50.0, 50.0));
+            let options = TestHarnessOptions {
+                size: Size::new(50.0, 50.0),
+                ..Default::default()
+            };
+            let mut harness = TestHarness::create_with(button, options);
 
             harness.render()
         };
@@ -317,7 +321,11 @@ mod tests {
         let image_2 = {
             let button = Button::new("Hello world");
 
-            let mut harness = TestHarness::create_with_size(button, Size::new(50.0, 50.0));
+            let options = TestHarnessOptions {
+                size: Size::new(50.0, 50.0),
+                ..Default::default()
+            };
+            let mut harness = TestHarness::create_with(button, options);
 
             harness.edit_root_widget(|mut button, _| {
                 let mut button = button.downcast::<Button>().unwrap();
