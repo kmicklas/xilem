@@ -21,14 +21,25 @@ checksum = "c71b1793ee61086797f5c80b6efa2b8ffa6d5dd703f118545808a7f2e27f7046"
 [[package]]
 name = "accesskit"
 version = "0.17.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d3d3b8f9bae46a948369bc4a03e815d4ed6d616bd00de4051133a5019dc31c5a"
+source = "git+https://github.com/AccessKit/accesskit.git?branch=android-basics#45da4022fdec4915f5c8c6c1774d63a0ae88f5a9"
+
+[[package]]
+name = "accesskit_android"
+version = "0.1.0"
+source = "git+https://github.com/AccessKit/accesskit.git?branch=android-basics#45da4022fdec4915f5c8c6c1774d63a0ae88f5a9"
+dependencies = [
+ "accesskit",
+ "accesskit_consumer",
+ "jni",
+ "log",
+ "once_cell",
+ "paste",
+]
 
 [[package]]
 name = "accesskit_atspi_common"
 version = "0.10.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7c5dd55e6e94949498698daf4d48fb5659e824d7abec0d394089656ceaf99d4f"
+source = "git+https://github.com/AccessKit/accesskit.git?branch=android-basics#45da4022fdec4915f5c8c6c1774d63a0ae88f5a9"
 dependencies = [
  "accesskit",
  "accesskit_consumer",
@@ -41,8 +52,7 @@ dependencies = [
 [[package]]
 name = "accesskit_consumer"
 version = "0.26.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f47983a1084940ba9a39c077a8c63e55c619388be5476ac04c804cfbd1e63459"
+source = "git+https://github.com/AccessKit/accesskit.git?branch=android-basics#45da4022fdec4915f5c8c6c1774d63a0ae88f5a9"
 dependencies = [
  "accesskit",
  "hashbrown 0.15.2",
@@ -52,8 +62,7 @@ dependencies = [
 [[package]]
 name = "accesskit_macos"
 version = "0.18.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7329821f3bd1101e03a7d2e03bd339e3ac0dc64c70b4c9f9ae1949e3ba8dece1"
+source = "git+https://github.com/AccessKit/accesskit.git?branch=android-basics#45da4022fdec4915f5c8c6c1774d63a0ae88f5a9"
 dependencies = [
  "accesskit",
  "accesskit_consumer",
@@ -66,8 +75,7 @@ dependencies = [
 [[package]]
 name = "accesskit_unix"
 version = "0.13.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fcee751cc20d88678c33edaf9c07e8b693cd02819fe89053776f5313492273f5"
+source = "git+https://github.com/AccessKit/accesskit.git?branch=android-basics#45da4022fdec4915f5c8c6c1774d63a0ae88f5a9"
 dependencies = [
  "accesskit",
  "accesskit_atspi_common",
@@ -84,8 +92,7 @@ dependencies = [
 [[package]]
 name = "accesskit_windows"
 version = "0.24.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "24fcd5d23d70670992b823e735e859374d694a3d12bfd8dd32bd3bd8bedb5d81"
+source = "git+https://github.com/AccessKit/accesskit.git?branch=android-basics#45da4022fdec4915f5c8c6c1774d63a0ae88f5a9"
 dependencies = [
  "accesskit",
  "accesskit_consumer",
@@ -99,10 +106,10 @@ dependencies = [
 [[package]]
 name = "accesskit_winit"
 version = "0.23.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6a6a48dad5530b6deb9fc7a52cc6c3bf72cdd9eb8157ac9d32d69f2427a5e879"
+source = "git+https://github.com/AccessKit/accesskit.git?branch=android-basics#45da4022fdec4915f5c8c6c1774d63a0ae88f5a9"
 dependencies = [
  "accesskit",
+ "accesskit_android",
  "accesskit_macos",
  "accesskit_unix",
  "accesskit_windows",
@@ -879,8 +886,7 @@ checksum = "75b325c5dbd37f80359721ad39aca5a29fb04c89279657cffdda8736d0c0b9d2"
 [[package]]
 name = "dpi"
 version = "0.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f25c0e292a7ca6d6498557ff1df68f32c99850012b6ea401cf8daf771f22ff53"
+source = "git+https://github.com/mwcampbell/winit?branch=android-combined-patches-backport#2e60b500a5ae8aca55866bae808650ada4c2c88e"
 
 [[package]]
 name = "elm"
@@ -4496,8 +4502,7 @@ checksum = "589f6da84c646204747d1270a2a5661ea66ed1cced2631d546fdfb155959f9ec"
 [[package]]
 name = "winit"
 version = "0.30.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0be9e76a1f1077e04a411f0b989cbd3c93339e1771cb41e71ac4aee95bfd2c67"
+source = "git+https://github.com/mwcampbell/winit?branch=android-combined-patches-backport#2e60b500a5ae8aca55866bae808650ada4c2c88e"
 dependencies = [
  "ahash",
  "android-activity",
@@ -4512,6 +4517,7 @@ dependencies = [
  "core-graphics",
  "cursor-icon",
  "dpi",
+ "jni",
  "js-sys",
  "libc",
  "memmap2",

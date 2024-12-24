@@ -111,7 +111,7 @@ parley = { git = "https://github.com/linebender/parley", rev = "16b62518d467487e
     "accesskit",
 ] }
 peniko = "0.3.0"
-winit = "0.30.4"
+winit = "0.30.5"
 tracing = { version = "0.1.40", default-features = false }
 smallvec = "1.13.2"
 hashbrown = "0.15.2"
@@ -130,3 +130,14 @@ debug = 0 # Don't compile debug info to reduce compilation artifact size for cac
 strip = "debuginfo" # Implied by debug = 0 since Rust 1.77, but still needed for an older MSRV.
 [profile.ci.package."*"]
 debug-assertions = true # Keep always on for dependencies for cache reuse.
+
+[patch.crates-io]
+accesskit = { git = "https://github.com/AccessKit/accesskit.git", branch = "android-basics" }
+accesskit_atspi_common = { git = "https://github.com/AccessKit/accesskit.git", branch = "android-basics" }
+accesskit_consumer = { git = "https://github.com/AccessKit/accesskit.git", branch = "android-basics" }
+accesskit_macos = { git = "https://github.com/AccessKit/accesskit.git", branch = "android-basics" }
+accesskit_unix = { git = "https://github.com/AccessKit/accesskit.git", branch = "android-basics" }
+accesskit_windows = { git = "https://github.com/AccessKit/accesskit.git", branch = "android-basics" }
+accesskit_winit = { git = "https://github.com/AccessKit/accesskit.git", branch = "android-basics" }
+dpi = { git = "https://github.com/mwcampbell/winit", branch = "android-combined-patches-backport" }
+winit = { git = "https://github.com/mwcampbell/winit", branch = "android-combined-patches-backport" }
