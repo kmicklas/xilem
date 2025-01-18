@@ -12,7 +12,9 @@ pkgs.mkShell rec {
   ];
 
   nativeBuildInputs = [
+    pkgs.cargo-flamegraph
     pkgs.clang
+    pkgs.linuxPackages_latest.perf
     pkgs.pkg-config
   ];
 
